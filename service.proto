@@ -1,0 +1,27 @@
+syntax = "proto3";
+package com.example.grpc.v1;
+option go_package = "grpc;grpc";
+
+import "protobuf/empty.proto";
+import "protobuf/timestamp.proto";
+
+service TestService {
+  rpc bidirectional(stream Ping) returns (stream ServerEventMessage);
+  rpc serverStream(google.protobuf.Empty) returns (stream ServerEventMessage);
+}
+
+enum ServerEvent {
+  ServerPing = 0;
+}
+
+message Ping {
+  google.protobuf.Timestamp time = 1;
+}
+
+message ServerEventMessage {
+  ServerEvent event = 1;
+
+  oneof payload {
+    string message = 3;
+  }
+}
