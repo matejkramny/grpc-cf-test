@@ -3,7 +3,7 @@ PROTO_INCLUDES=-I=./ \
 		-I=/usr/local/include \
 		-I=$(GOPATH)/src
 
-.PHONY: grpc server
+.PHONY: grpc server client
 all: grpc server
 
 grpc:
@@ -12,3 +12,6 @@ grpc:
 server:
 	@mkdir -p ./build
 	go build -o ./build/server ./server
+
+client:
+	go run ./client/main.go
